@@ -14,12 +14,10 @@ provider "aws" {
 
 # Create S3 bucket
 resource "aws_s3_bucket" "site" {
-  //provider = aws.us-east-1
   bucket = var.bucket_name
 }
 
 resource "aws_s3_bucket_policy" "site_policy" {
-  //provider = aws.us-east-1
   bucket = aws_s3_bucket.site.id
 
   policy = jsonencode({
@@ -41,19 +39,6 @@ resource "aws_s3_bucket_policy" "site_policy" {
     ]
   })
 }
-
-# Enable static website hosting
-# resource "aws_s3_bucket_website_configuration" "site" {
-#   bucket = aws_s3_bucket.site.id
-#
-#   index_document {
-#     suffix = "index.html"
-#   }
-#
-#   error_document {
-#     key = "error.html"
-#   }
-# }
 
 # Upload local files to bucket
 resource "aws_s3_object" "assets" {
